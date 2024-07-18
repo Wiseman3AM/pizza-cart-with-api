@@ -1,115 +1,68 @@
 body {
     font-family: Helvetica;
-    font-weight:900;
+    font-weight:bolder;
     margin-left: 1.5em;
     margin-right: 1.5em;
-    background-image: url('images/1721261542389.jpeg');
+    background-image: url('images/1721298066783.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+
 
 }
 
 .cart {
-    background-color: #FAA613;
+    background-color: #caf0f8;
     text-align: center;
-    border: 3px solid #FAA613;
+    border: 3px solid #caf0f8;
     border-radius: 1em;
     padding: 1em;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
 }
 
-
+.cartTable{
+    background-color: #fdfcdc;
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+}
+  
 
 .cartTable th{
     border: solid 1px black;
-    background-color: beige;
+    background-color: #fdfcdc;
+     padding: 10px;
+  text-align: left;
 }
 
 .cartTable tr{
     border: solid 1px black;
-    background-color: beige;
+    background-color: #fdfcdc;
+     padding: 10px;
+  text-align: left;
 }
 
 .cartTable td{
     border: solid 1px black;
-    background-color: beige;
-}
-
-
-
-
-/* 
-.cartButtons {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    width: 100%;
+    background-color: #fdfcdc;
+     padding: 10px;
+  text-align: left;
     
 }
 
-.cartItem {
-    display: flex; 
-    justify-content: space-between;
-   
-    margin: 0.5em;
+.menu{
+    background-color: #caf0f8;
+    border: #a2cbc1;
+    border-radius: 1em;
+    text-align: center;
 }
-
-.addTextS, .addTextM, .addTextL {
-    flex: 1;
-}
-
-
-.hH30{
-    color: green;
-    font-weight: bolder;
-}
-
-.hH31{
-    color: red;
-    font-weight: bolder;
-}
-
-.hH32{
-    color: green;
-    font-weight: bolder;
-}
-
-.change{
-    color: black;
-} */
-
-/*.addTextS, 
-.addTextL{
-  padding-left: 10px;
-}
-
-.addTextM{
-    padding-left: 8px;
-
-}
-
-.tcCartS, .tcCartL{
-    padding-right: ;
-   
-}
-
-.tcCartM{
-    padding-left: ;
-   
-}
-
-.add-subM,
-.add-subS, 
-.add-subL{
-    padding-left: 10px;
-   
-}*/
-
-
-
-
 
 .pizza {
-    border: 3px solid #FAA613;
+    border: 3px solid #caf0f8;
     padding: 1em;
     margin: 1em;
     margin-bottom: 3em;
@@ -122,54 +75,36 @@ body {
 
 .heading {
     text-align: center;
-    border: 1px solid #FAA613;
+    border: 1px solid #caf0f8;
     border-radius: 0.3em;
-    background-color: #FAA613;
+    background-color: #caf0f8;
 
 }
 
 
 
 .details {
-    background-color: #FAA613;
+    background-color: #caf0f8;
     padding: 1em;
     margin: 1em;
     margin-bottom: 3em;
     margin-left: 0;
-    border: 3px solid #FAA613;
+    border: 3px solid #caf0f8;
     border-radius: 1em;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    flex: 1;
 
-    .left {
-        justify-self: flex-start;
+    align-content: space-evenly;
     }
 
-    .right {
-        justify-self: flex-end;
-    }
-}
 
 
-/* @media (min-width: 960px) {
 
-    .pizzas {
-        display: flex;
-    }
-}
 
-@media (max-width: 960px) {
-
-    .details {
-        width: 80%;
-    }
-}
- */
+ 
 
 .meaty{
-    background-color: #A10702;
-    border: 1px solid #A10702;
+    background-color: #d62828;
+    border-radius: 1em;
+    border: 1px solid #d62828;
     margin-bottom: 5px ;
     padding-top: 2px;
     display: flex;
@@ -177,13 +112,15 @@ body {
 }
 
 .meatyTable{
-    border: solid 1px #A10702;
-    background-color: #A10702;
+    border: solid 1px #d62828;
+    background-color: #d62828;
+    border-radius: 1em;
 }
 
 .chicken{
-    background-color:   #FAA613;
-    border: 2px solid #FAA613;
+    background-color:   #fee440;
+    border: 2px solid #fee440;
+    border-radius: 1em;
     margin-bottom: 5px ;
     padding-top: 2px;
     display: flex;
@@ -191,14 +128,16 @@ body {
 }
 
 .chickenTable{
-    background-color:   #FAA613;
-    border: 1px solid #FAA613;
+    background-color:   #fee440;
+    border: 1px solid #fee440;
+    border-radius : 1em;
 }
 
 
 .veggie{
-    background-color:   greenyellow;
-    border: 2px solid greenyellow;
+    background-color:   #99d98c;
+    border: 2px solid #99d98c;
+    border-radius: 1em;
     margin-bottom: 5px ;
     padding-top: 2px;
     display: flex;
@@ -206,21 +145,31 @@ body {
 }
 
 .veggieTable{
-    background-color:   greenyellow;
-    border: 1px solid greenyellow;
+    background-color:   #99d98c;
+    border: 1px solid #99d98c;
+    border-radius: 1em;
 }
 
 
 .tMeaty{
-    background-color: #A10702;
+    background-color: #d62828;
+    border-radius: 1em;
+
+    text-align: center;
 }
 
 .tChick{
-    background-color: #FAA613;
+    background-color: #fee440;
+    border-radius: 1em;
+
+    text-align: center;
 }
 
 .tVeggie{
-    background-color: greenyellow;
+    background-color: #99d98c;
+    border-radius: 1em;
+
+    text-align: center;
 }
 
 
@@ -228,11 +177,13 @@ body {
 .largeMeaty{
     display: flex;
     flex-direction: column;
+    
 }
 
 .largeChicken{
     display: flex;
     flex-direction: column;
+    
 }
 
 .largeVeggie{
@@ -248,6 +199,11 @@ body {
     margin-left: auto;
     align-items: center;
     justify-content: center;
+    margin-right: 1px;
+    border-radius: 1em;
+    font-weight: bolder;
+    border: 1px solid #fdfcdc;
+    background-color: #fdfcdc;
 }
 
 .selection{
@@ -255,7 +211,7 @@ body {
 }
 
 
-@media (min-width: 480px){
+@media (min-width: 871px){
     .pizzas {
         display: flex;
         gap: 10px; 
@@ -264,9 +220,44 @@ body {
         flex: 1;
     }
 
+    .space{
+        width: 33%;
+    }
+
+    .details{
+        display: flex;
+        flex: 1;
+    }
+
+    .left{
+        width: 85% ;
+    }
+    
+        .right{
+     width:15%;
+     justify-content: flex-end;
+            
+        }
 
 
     }
+
+    .showPopUp{
+        background-color: #a2cbc1;
+        border: solid #a2cbc1 1px ;
+        border-radius: 1em;
+        text-align: center;
+        margin-bottom: 1em;
+        align-items: center;
+        justify-content: center;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+
+    .popUpInput{
+        margin-bottom: 1em;
+    }
+    
 
 
 

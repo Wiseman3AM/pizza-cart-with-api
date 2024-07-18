@@ -11,28 +11,40 @@
     <script src="alpineData.js"></script>
 </head>
 
-<body x-data="pizzaCart" x-cloak>
+<body x-data="pizzaCart" x-cloak x-init="init()">
 
     <div>
         
         
         <div>  
-            Username: <input type="text" x-model="username"> 
-            <button class="login" @click="login" x-show="cartId == 'No username to create a cart' || cartId = ''">Login</button> 
+             
             <button class="logout" @click="logout" x-show="username && cartId">Logout</button>
         </div>
       <div style="display: none;">  Cart Code: <span x-text="cartId"></span></div> 
       
 
-        <h1 class="title" x-text="title"></h1>
+        <h1 class="menu" x-text="title"></h1>
+
+
+        <div class="showPopUp" x-show="cartId == 'No username to create a cart' || cartId == ''">
+        <form>
+            <h2>Please enter username to order</h2>
+           <div class="popUpInput"> Username: <input type="text" x-model="username"> </div>
+            <button class="login" 
+                    @click="login" 
+                    >Login
+            </button>
+        </form>
+
+        </div>
             
+<div class="none" x-show="show">
+
+
 
         <div class="cart" x-show="cartId">
             <div>
-
-            </div>
-            <div>
-                <h2>Your Cart</h2>
+                <h2>Cart</h2>
                 <div class="message" x-text="message">message here</div>
                 <table class="cartTable">
                     <tr>
@@ -74,11 +86,14 @@
                 </table>
             </div>
         </div>
+    </div>
+</div>
 
 
         <!-- Large pizzas
  -------------------------------------------------------------------------------------------------------------------------------- -->
-<div x-show="username && cartId">
+ <div class="none" x-show="show">
+ <div x-show="username && cartId">
 
         <h2 class="menu">Large Pizzas</h2>
  
@@ -86,7 +101,7 @@
         <div class="pizzas">
        
            
-           <div>
+           <div class="space">
                <h2 class="tMeaty">Meaty pizzas</h2>
                <template x-for="pizza in sortedPizzas">
                    <div class="largeMeaty">
@@ -102,7 +117,7 @@
            </div>
        
        
-           <div>
+           <div class="space">
                <h2 class="tChick">Chicken pizzas</h2>
                <template x-for="pizza in sortedPizzas">
                    <div class="largeChicken">
@@ -118,7 +133,7 @@
            </div>
        
        
-           <div>
+           <div class="space">
                <h2 class="tVeggie">Veggie pizzas</h2>
                <template x-for="pizza in sortedPizzas">
                    <div class="largeVeggie">
@@ -134,18 +149,19 @@
            </div>
        </div>
     </div>
+ </div>
 
 
        <!-- Medium pizzas
  -------------------------------------------------------------------------------------------------------------------------------- -->
 
-
+ <div class="none" x-show="show">
        <h2 class="menu">Medium Pizzas</h2>
 
        <div class="pizzas">
        
            
-        <div>
+        <div class="space">
             <h2 class="tMeaty">Meaty pizzas</h2>
             <template x-for="pizza in sortedPizzas">
                 <div class="largeMeaty">
@@ -161,7 +177,7 @@
         </div>
     
     
-        <div>
+        <div class="space">
             <h2 class="tChick">Chicken pizzas</h2>
             <template x-for="pizza in sortedPizzas">
                 <div class="largeChicken">
@@ -177,7 +193,7 @@
         </div>
     
     
-        <div>
+        <div class="space">
             <h2 class="tVeggie">Veggie pizzas</h2>
             <template x-for="pizza in sortedPizzas">
                 <div class="largeVeggie">
@@ -197,12 +213,13 @@
 
     <!-- Small pizzas
  -------------------------------------------------------------------------------------------------------------------------------- -->
+ <div class="none" x-show="show">
  <h2 class="menu">Small Pizzas</h2>
 
  <div class="pizzas">
        
            
-    <div>
+    <div class="space">
         <h2 class="tMeaty">Meaty pizzas</h2>
         <template x-for="pizza in sortedPizzas">
             <div class="largeMeaty">
@@ -218,7 +235,7 @@
     </div>
 
 
-    <div>
+    <div class="space">
         <h2 class="tChick">Chicken pizzas</h2>
         <template x-for="pizza in sortedPizzas">
             <div class="largeChicken">
@@ -234,7 +251,7 @@
     </div>
 
 
-    <div>
+    <div class="space">
         <h2 class="tVeggie">Veggie pizzas</h2>
         <template x-for="pizza in sortedPizzas">
             <div class="largeVeggie">
@@ -251,6 +268,24 @@
 </div>
 </div>
 
+<div class="details">
+    <div class="left">
+        <h2>Contact Details</h2>
+        <p> Contact us at: 011 340 1231</p>
+        <p>info@<a href="Perfectpizza.co.za">Perfectpizza.co.za</a></p>
+        <p>Instagram@ <a href="perfectpizza">perfectpizza</a></p>
+        <p>Facebook@ <a href="perfectpizza">perfectpizza</a></p>
+    </div>
+
+    <div class="right">
+        <h2>Address</h2>
+        <p>Pizza Plaza</p>
+        <p>Dough Road</p>
+        <p>Base Town</p>
+
+    </div>
+
+</div>
 
 
 </body>
