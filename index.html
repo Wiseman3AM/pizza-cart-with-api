@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Cart API</title>
+    <script defer src="https://unpkg.com/alpinejs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="alpineData.js"></script>
+</head>
+
+<body x-data="pizzaCart" x-cloak>
+
+    <div>
+        
+        
+        <div>  
+            Username: <input type="text" x-model="username"> 
+            <button class="login" @click="login" x-show="cartId == 'No username to create a cart' || cartId = ''">Login</button> 
+            <button class="logout" @click="logout" x-show="username && cartId">Logout</button>
+        </div>
+      <div style="display: none;">  Cart Code: <span x-text="cartId"></span></div> 
+      
+
+        <h1 class="title" x-text="title"></h1>
+            
+
+        <div class="cart" x-show="cartId">
+            <div>
+
+            </div>
+            <div>
+                <h2>Your Cart</h2>
+                <div class="message" x-text="message">message here</div>
+                <table class="cartTable">
+                    <tr>
+                        <th>Flavour</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+
+                    <template x-for="pizza in cartPizzas">
+                        <tr>
+                            <td x-text="pizza.flavour"></td>
+                           <td x-text="pizza.size" ></td>
+                           <td x-text="pizza.price"></td>
+                           <td>
+                               <button @click="addPizzaToCart(pizza.id)">+</button>
+                               x <span x-text="pizza.qty"></span>
+                               <button @click="removePizzaFromCart(pizza.id)">-</button>
+                           </td>
+                           <td x-text="pizza.total"</td>
+                       </tr>
+                    </template>
+
+                  
+                    <tr>
+                        <td colspan="3">Total</td>
+                        <td colspan="2">R <span x-text="cartTotal"></span> </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td colspan="3">Pay now</td>
+                        <td>
+                            <input x-model="paymentAmount" type="test">
+                        </td>
+                        <td><button @click="payForCart()">Pay</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Large pizzas
+ -------------------------------------------------------------------------------------------------------------------------------- -->
+<div x-show="username && cartId">
+
+        <h2 class="menu">Large Pizzas</h2>
+ 
+       
+        <div class="pizzas">
+       
+           
+           <div>
+               <h2 class="tMeaty">Meaty pizzas</h2>
+               <template x-for="pizza in sortedPizzas">
+                   <div class="largeMeaty">
+                       <div x-show="pizza.type == 'meaty' && pizza.size == 'large'" class="meaty">
+                    <table class="meatyTable">
+                    <tr x-text="pizza.flavour"></tr>
+                    <tr x-text="'R ' + pizza.price"></tr>
+                    </table>
+                    <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                </div>
+                </div>
+             </template>
+           </div>
+       
+       
+           <div>
+               <h2 class="tChick">Chicken pizzas</h2>
+               <template x-for="pizza in sortedPizzas">
+                   <div class="largeChicken">
+                       <div x-show="pizza.type == 'chicken' && pizza.size == 'large'" class="chicken">
+                        <table class="chickenTable">
+                            <tr x-text="pizza.flavour"></tr>
+                            <tr x-text="'R ' + pizza.price"></tr>
+                            </table>
+                            <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                         </div>
+                   </div>
+               </template>
+           </div>
+       
+       
+           <div>
+               <h2 class="tVeggie">Veggie pizzas</h2>
+               <template x-for="pizza in sortedPizzas">
+                   <div class="largeVeggie">
+                       <div x-show="pizza.type == 'veggie' && pizza.size == 'large'" class="veggie">
+                        <table class="veggieTable">
+                            <tr x-text="pizza.flavour"></tr>
+                            <tr x-text="'R ' + pizza.price"></tr>
+                            </table>
+                            <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                         </div>
+                   </div>
+               </template>
+           </div>
+       </div>
+    </div>
+
+
+       <!-- Medium pizzas
+ -------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+       <h2 class="menu">Medium Pizzas</h2>
+
+       <div class="pizzas">
+       
+           
+        <div>
+            <h2 class="tMeaty">Meaty pizzas</h2>
+            <template x-for="pizza in sortedPizzas">
+                <div class="largeMeaty">
+                    <div x-show="pizza.type == 'meaty' && pizza.size == 'medium'" class="meaty">
+                 <table class="meatyTable">
+                 <tr x-text="pizza.flavour"></tr>
+                 <tr x-text="'R ' + pizza.price"></tr>
+                 </table>
+                 <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+             </div>
+             </div>
+          </template>
+        </div>
+    
+    
+        <div>
+            <h2 class="tChick">Chicken pizzas</h2>
+            <template x-for="pizza in sortedPizzas">
+                <div class="largeChicken">
+                    <div x-show="pizza.type == 'chicken' && pizza.size == 'medium'" class="chicken">
+                     <table class="chickenTable">
+                         <tr x-text="pizza.flavour"></tr>
+                         <tr x-text="'R ' + pizza.price"></tr>
+                         </table>
+                         <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                      </div>
+                </div>
+            </template>
+        </div>
+    
+    
+        <div>
+            <h2 class="tVeggie">Veggie pizzas</h2>
+            <template x-for="pizza in sortedPizzas">
+                <div class="largeVeggie">
+                    <div x-show="pizza.type == 'veggie' && pizza.size == 'medium'" class="veggie">
+                     <table class="veggieTable">
+                         <tr x-text="pizza.flavour"></tr>
+                         <tr x-text="'R ' + pizza.price"></tr>
+                         </table>
+                         <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                      </div>
+                </div>
+            </template>
+        </div>
+    </div>
+ </div>
+
+
+    <!-- Small pizzas
+ -------------------------------------------------------------------------------------------------------------------------------- -->
+ <h2 class="menu">Small Pizzas</h2>
+
+ <div class="pizzas">
+       
+           
+    <div>
+        <h2 class="tMeaty">Meaty pizzas</h2>
+        <template x-for="pizza in sortedPizzas">
+            <div class="largeMeaty">
+                <div x-show="pizza.type == 'meaty' && pizza.size == 'small'" class="meaty">
+             <table class="meatyTable">
+             <tr x-text="pizza.flavour"></tr>
+             <tr x-text="'R ' + pizza.price"></tr>
+             </table>
+             <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+         </div>
+         </div>
+      </template>
+    </div>
+
+
+    <div>
+        <h2 class="tChick">Chicken pizzas</h2>
+        <template x-for="pizza in sortedPizzas">
+            <div class="largeChicken">
+                <div x-show="pizza.type == 'chicken' && pizza.size == 'small'" class="chicken">
+                 <table class="chickenTable">
+                     <tr x-text="pizza.flavour"></tr>
+                     <tr x-text="'R ' + pizza.price"></tr>
+                     </table>
+                     <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                  </div>
+            </div>
+        </template>
+    </div>
+
+
+    <div>
+        <h2 class="tVeggie">Veggie pizzas</h2>
+        <template x-for="pizza in sortedPizzas">
+            <div class="largeVeggie">
+                <div x-show="pizza.type == 'veggie' && pizza.size == 'small'" class="veggie">
+                 <table class="veggieTable">
+                     <tr x-text="pizza.flavour"></tr>
+                     <tr x-text="'R ' + pizza.price"></tr>
+                     </table>
+                     <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                  </div>
+            </div>
+        </template>
+    </div>
+</div>
+</div>
+
+
+
+</body>
+
+</html>
