@@ -16,11 +16,22 @@
     <div>
         
         
-        <div>  
-             
-            <button class="logout" @click="logout" x-show="username && cartId">Logout</button>
+        <div class="top">  
+            <span class="greet"
+                x-text ="'Hi ' + username " 
+                x-show="username && cartId" 
+            ></span>
+            <button class="buyButton" @click="logout" x-show="username && cartId">Logout</button>
         </div>
-      <div style="display: none;">  Cart Code: <span x-text="cartId"></span></div> 
+      <!-- <div style="display: none;">  Cart Code: <span x-text="cartId"></span></div> --> 
+
+      <div class="toggle-container">
+        <button @click="toggleDarkMode" class="toggle-button">
+        <span class="icon" x-show="!darkmode">&#127774;</span>
+        <span class="icon" x-show="darkmode">&#127770;</span>
+        </button>
+    </div>
+    
       
 
         <h1 class="menu" x-text="title"></h1>
@@ -45,7 +56,12 @@
         <div class="cart" x-show="cartId">
             <div>
                 <h2>Cart</h2>
-                <div class="message" x-text="message">message here</div>
+                <div class="message" x-text="message" style="color: green;">message here</div>
+                <div class="changeMessage" x-show="change">
+                    <h3 style="color: green;">Enjoy your Pizza &#x1F389;</h3>
+                    <p style="color: green;">Here is your change:</p>
+                    <p style="color: green;" class="change" x-text="changeAmount"></p>
+                </div>
                 <table class="cartTable">
                     <tr>
                         <th>Flavour</th>
@@ -79,9 +95,9 @@
                     <tr>
                         <td colspan="3">Pay now</td>
                         <td>
-                            <input x-model="paymentAmount" type="test">
+                            <input class="payButton" x-model="paymentAmount" type="number">
                         </td>
-                        <td><button @click="payForCart()">Pay</button></td>
+                        <td><button class="payButton" @click="payForCart()">Pay</button></td>
                     </tr>
                 </table>
             </div>
