@@ -27,7 +27,7 @@ body {
 .cartTable{
     background-color: #fdfcdc;
     margin: auto;
-    width: 100%;
+    width: 60%;
     border-collapse: collapse;
 }
   
@@ -256,6 +256,7 @@ body {
 
     .popUpInput{
         margin-bottom: 1em;
+        width: 90%;
     }
 
     .greet{
