@@ -333,8 +333,15 @@ body {
 
 @media (max-width: 540px){
     .cartTable{
-    width: 50%;
+    width: 80%;
     }
+
+    .cartTable th, .cartTable td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
 }
 
 
