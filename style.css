@@ -44,6 +44,7 @@ body {
     background-color: #fdfcdc;
      padding: 10px;
   text-align: left;
+  border-collapse: collapse;
 }
 
 .cartTable td{
@@ -328,6 +329,12 @@ body {
 
 .icon-toggled {
     left: 25px;
+}
+
+@media (max-width: 540px){
+    .cartTable{
+    width: 50%;
+    }
 }
 
 

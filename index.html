@@ -40,7 +40,7 @@
         <div class="showPopUp" x-show="cartId == 'No username to create a cart' || cartId == ''">
         <form>
             <h2>Please enter username to order</h2>
-           <div class="popUpInput"> Username: <input type="text" x-model="username"> </div>
+           <div> Username: <input class="popUpInput" type="text" x-model="username"> </div>
             <button class="login" 
                     @click="login" 
                     >Login
@@ -104,6 +104,88 @@
         </div>
     </div>
 </div>
+
+
+ <!-- Featured pizzas
+ -------------------------------------------------------------------------------------------------------------------------------- -->
+ <div class="none" x-show="show">
+    <div x-show="username && cartId">
+   
+           <h2 class="menu">Featured Pizzas</h2>
+    
+          
+           <div class="pizzas">
+          
+              
+              <div class="space">
+                  <h2 class="tMeaty">Most popular</h2>
+                  <template x-for="pizza in sortedPizzas">
+                      <div class="largeMeaty">
+                        
+                          <div x-show="pizza.flavour == 'Four Season' && pizza.size == 'medium'" class="meaty">
+                            <img alt="pizza pic" 
+                            src="images/1721379237726.jpg" 
+                            width="150" 
+                            height="150" 
+                            style="border-radius: 6.5em;">
+                    <table class="meatyTable">
+                        <tr x-text= "'@  ' + pizza.size"></tr>
+                       <tr x-text="pizza.flavour"></tr>
+                       <tr x-text="'R ' + pizza.price"></tr>
+                    </table>
+                       <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                   </div>
+                   </div>
+                </template>
+              </div>
+          
+          
+              <div class="space">
+                  <h2 class="tChick">Speacial for one</h2>
+                  <template x-for="pizza in sortedPizzas">
+                      <div class="largeChicken">
+                          <div x-show="pizza.flavour == 'Sweet Chilli Chicken' && pizza.size == 'small'" class="chicken">
+                            <img alt="pizza pic" 
+                            src="images/1721379237679.jpg" 
+                            width="150" 
+                            height="150" 
+                            style="border-radius: 6.5em;">
+                           <table class="chickenTable">
+                            <tr x-text= "'@  ' + pizza.size"></tr>
+                               <tr x-text="pizza.flavour"></tr>
+                               <tr x-text="'R ' + pizza.price"></tr>
+                               </table>
+                               <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                            </div>
+                      </div>
+                  </template>
+              </div>
+          
+          
+              <div class="space">
+                  <h2 class="tVeggie">Healthy treat</h2>
+                  <template x-for="pizza in sortedPizzas">
+                      <div class="largeVeggie">
+                          <div x-show="pizza.flavour == '3 Cheese' && pizza.size == 'large'" class="veggie">
+                            <img alt="pizza pic" 
+                            src="images/1721379237709.jpg" 
+                            width="150" 
+                            height="150"
+                            style="border-radius: 6.5em;">
+                           <table class="veggieTable">
+                            <tr x-text= "'@  ' + pizza.size"></tr>
+                               <tr x-text="pizza.flavour"></tr>
+                               <tr x-text="'R ' + pizza.price"></tr>
+                               </table>
+                               <button class="buyButton" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                            </div>
+                      </div>
+                  </template>
+              </div>
+          </div>
+       </div>
+    </div>
+
 
 
         <!-- Large pizzas
