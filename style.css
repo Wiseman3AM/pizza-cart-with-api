@@ -265,6 +265,8 @@ body {
         background-color: #003049; 
         color: #fdfcdc;
         border-radius: 0.5em;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     .top{
