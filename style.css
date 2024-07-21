@@ -262,7 +262,8 @@ body {
 
     .greet{
         font-weight: bolder; 
-        background-color: #fdfcdc; 
+        background-color: #003049; 
+        color: #fdfcdc;
         border-radius: 0.5em;
     }
 
@@ -331,15 +332,35 @@ body {
     left: 25px;
 }
 
-@media (max-width: 540px){
+
+.maxWidth{
+    display: none;
+}
+
+@media (max-width: 580px){
     .cartTable{
-    width: 80%;
+    width: 8committ 0%;
     }
 
-    .cartTable th, .cartTable td {
-        display: block;
+    .cartTable th, .cartTable td, .cartTable tr {
+        display: none;
         width: 100%;
         box-sizing: border-box;
+    }
+
+    
+
+    td.minWidth{
+        display: table-cell;
+    }
+
+    tr.minWidth, tr.maxWidth{
+        display: table-row;
+    }
+    
+    .maxWidth{
+        display: block;
+
     }
 
 }
@@ -376,7 +397,8 @@ body.darkmode .cart {
 }
 
 body.darkmode .greet{
-    background-color: #669bbc;
+    background-color: #fdfcdc ;
+    color: #669bbc;
 }
 
 body.darkmode .showPopUp{
