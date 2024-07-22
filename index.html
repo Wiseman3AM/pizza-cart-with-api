@@ -56,12 +56,14 @@
         <div class="cart" x-show="cartId">
             <div>
                 <h2>Cart</h2>
-                <div class="message" x-text="message" style="color: green;">message here</div>
+                <div class="message">
+                <div x-text="message"></div>
+                <h3 x-show="enjoy">Enjoy your Pizza &#x1F389;</h3>
                 <div class="changeMessage" x-show="change">
-                    <h3 style="color: green;">Enjoy your Pizza &#x1F389;</h3>
-                    <p style="color: green;">Here is your change:</p>
-                    <p style="color: green;" class="change" x-text="changeAmount"></p>
+                    <p>Here is your change:</p>
+                    <p class="change" x-text="changeAmount"></p>
                 </div>
+            </div>
                 <table class="cartTable">
                     <tr>
                         <th>Flavour</th>

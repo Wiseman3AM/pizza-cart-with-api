@@ -19,6 +19,7 @@ document.addEventListener("alpine:init", () => {
             change: false,
             changeAmount: 0.00,
             darkmode: false,
+            enjoy: false,
 
 
 
@@ -182,8 +183,10 @@ document.addEventListener("alpine:init", () => {
                                 this.message = 'Payment received';
                                 this.changeAmount = (this.paymentAmount - this.cartTotal).toFixed(2);
                                 this.change = true;
+                                this.enjoy = true;
                             } else {
                                 this.message = 'Payment received';
+                                this.enjoy = true;
                             }
                             setTimeout(() => {
                                 // Clear cart state
@@ -192,6 +195,7 @@ document.addEventListener("alpine:init", () => {
                                 this.paymentAmount = 0.00;
                                 this.changeAmount = 0.00;
                                 this.change = false;
+                                this.enjoy = false;
             
                                 // Clear local storage
                                 localStorage['cartId'] = '';

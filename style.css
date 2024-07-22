@@ -335,6 +335,10 @@ body {
 }
 
 
+.message{
+    color: green;
+}
+
 .maxWidth{
     display: none;
 }
@@ -386,6 +390,8 @@ body.darkmode .toggle-button .icon {
     color: black ;
     font-weight: bolder;
 }
+
+
 
 body.darkmode .cart {
     background-color: #669bbc;
