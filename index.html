@@ -7,21 +7,43 @@
     <title>Pizza Cart API</title>
     <script defer src="https://unpkg.com/alpinejs"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <script src="alpineData.js"></script>
 </head>
 
 <body x-data="pizzaCart" x-cloak x-init="init()">
 
+
+    
+   <nav>
+        <div class="navButton">
+            <a href="javascript:void(0);"><ion-icon name="menu-outline"></ion-icon></a>
+        </div>
+        <div class="logo">
+            <a href="#"><img src="images/1721299291133.jpeg" alt="Nav bar pic"></a>
+        </div>
+        <ul class="navBar">
+            <li><a href="#">Featured Pizzas</a></li>
+            <li><a href="#">Large Pizzas</a></li>
+            <li><a href="#">Medium Pizzas</a></li>
+            <li><a href="#">Small Pizzas</a></li>
+            <li><a href="#">Cart</a></li>
+            <li><button class="buyButton" @click="logout" x-show="username && cartId">Logout</button></li>
+        </ul>
+    </nav> 
+
+
+
+
     <div>
-        
-        
         <div class="top">  
             <span class="greet"
                 x-text ="'Hi ' + username " 
                 x-show="username && cartId" 
             ></span>
-            <button class="buyButton" @click="logout" x-show="username && cartId">Logout</button>
+            
         </div>
       <!-- <div style="display: none;">  Cart Code: <span x-text="cartId"></span></div> --> 
 
@@ -120,6 +142,38 @@
             </div>
         </div>
     </div>
+</div>
+
+
+
+<div class="history">
+
+    <template x-for="cart in cartHistory">
+
+        
+<table>
+
+    <tr>
+        <th>Flavour</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Total</th>
+    </tr>
+
+
+
+    <tr>
+        <td x-text="cart.flavour"></td>
+        <td x-text="cart.size" ></td>
+        <td x-text="cart.price"></td>
+        <td x-text="cart.qty"></td>
+        <td x-text="cart.total"></td>
+    </tr>
+
+</table>
+</template>
+
 </div>
 
 
@@ -386,10 +440,11 @@
 <div class="details">
     <div class="left">
         <h2>Contact Details</h2>
-        <p> Contact us at: 011 340 1231</p>
-        <p>info@<a href="Perfectpizza.co.za">Perfectpizza.co.za</a></p>
-        <p>Instagram@ <a href="perfectpizza">perfectpizza</a></p>
-        <p>Facebook@ <a href="perfectpizza">perfectpizza</a></p>
+        <p><ion-icon name="call-outline"></ion-icon>: 011 340 1231</p>
+        <p><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></p>
+        <p><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></p>
+        <p><a href="perfectpizza"></a></p>
+        <p><a href="#"></a><ion-icon name="logo-instagram"></ion-icon></p>
     </div>
 
     <div class="right">

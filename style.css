@@ -12,6 +12,99 @@ body {
 
 }
 
+/*  Navigation BAR
+-------------------------------------------------------------------------------------------------------------------------------- */
+
+a, a:hover {
+    text-decoration: none;
+}
+
+.top-bar span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 25px;
+    background-color: #fdfcdc;
+}
+
+.logo img {
+    width: 40px;
+    margin-left: 10px;
+}
+
+nav {
+    background-color: #fdfcdc;
+    color: #003049;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: #003049;
+}
+
+.logo {
+    flex: 1;
+}
+
+.logo img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.navBar {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.navBar li {
+    padding: 15px 10px;
+    font-size: 16px;
+    border-right: solid 1px #003049;
+}
+
+.navButton {
+    font-size: 30px;
+}
+
+@media screen and (max-width: 600px) {
+    nav {
+        display: block;
+        position: relative;
+        padding: 15px 20px;
+    }
+
+    .navBar {
+        margin-top: 15px;
+        display: none;
+    }
+
+    .navBar.active {
+        display: block;
+    }
+
+    .navButton {
+        font-size: 30px;
+    }
+
+    .navButton {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+}
+
+
+
+
+
+
+
+/* Body
+-------------------------------------------------------------------------------------------------------------------------------- */
+
 .cart {
     background-color: #fdfcdc;
     text-align: center;

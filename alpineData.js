@@ -20,11 +20,11 @@ document.addEventListener("alpine:init", () => {
             changeAmount: 0.00,
             darkmode: false,
             enjoy: false,
+            cartHistory : [],
 
 
-
-            /* Functions
-            ------------------------------------------------------------------------------------------------------------------------------------- */
+/* Functions
+------------------------------------------------------------------------------------------------------------------------------------- */
 
             toggleDarkMode() {
                 this.darkmode = !this.darkmode;
@@ -82,6 +82,16 @@ document.addEventListener("alpine:init", () => {
                 return axios.get(getCartURL);
             },
 
+        /*     showOrders() {
+                const pastOrders = `https://pizza-api.projectcodex.net/api/pizza-cart/username/${this.username}`;
+                return axios.showPastOrders(pastOrders)
+            }, */
+
+            fetchcartHistory(){
+                this.cartHistory = JSON.parse(localStorage.getItem('cartHistory') || [])
+            console.log(this.cartHistory)
+            },
+
 
             addPizza(pizzaId) {
                 return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/add', {
@@ -120,7 +130,13 @@ document.addEventListener("alpine:init", () => {
             init() {
                 const storedUsername = localStorage['username'];
                 if (storedUsername) {
-                    this.username = storedUsername;
+                    this.username = storedUsername
+                };
+
+
+                const storedCart = localStorage['oldCart'];
+                if (storedCart) {
+                    this.storedCart = ['oldCart']
                 };
 
                 // Load dark mode state
@@ -176,6 +192,7 @@ document.addEventListener("alpine:init", () => {
                     .then(result => {
                         if (result.data.status === 'failure') {
                             this.message = result.data.message;
+                            
                             setTimeout(() => this.message = '', 3000);
                             alert("Not enough please enter the required amount!");
                         } else {
@@ -184,6 +201,13 @@ document.addEventListener("alpine:init", () => {
                                 this.changeAmount = (this.paymentAmount - this.cartTotal).toFixed(2);
                                 this.change = true;
                                 this.enjoy = true;
+
+                                let localStorageData = JSON.parse(localStorage.getItem('cartHistory')) || [];
+                                let cartHistoryArr = [...this.cartPizzas, ...localStorageData];
+                                localStorage.setItem('cartHistory', JSON.stringify(cartHistoryArr));
+                                this.cartHistory = cartHistoryArr; // Update the cartHistory in Alpine.js component
+                                console.log(cartHistoryArr);                          
+
                             } else {
                                 this.message = 'Payment received';
                                 this.enjoy = true;
@@ -222,3 +246,25 @@ document.addEventListener("alpine:init", () => {
         };
     });
 });
+
+
+
+/* Nav functions
+------------------------------------------------------------------------------------------------------------------------------------- */
+/* document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector(".toggle").addEventListener("click", function() {
+        const navBar = document.querySelector(".navBar");
+        const logo = document.querySelector(".logo");
+        const icon = this.querySelector("ion-icon");
+
+        if (navBar.style.display === "none") {
+            navBar.style.display = "flex";
+            logo.style.display = "block";
+            icon.setAttribute("name", "menu-outline");
+        } else {
+            navBar.style.display = "none";
+            logo.style.display = "none";
+            icon.setAttribute("name", "close-outline");
+        }
+    });
+}); */
