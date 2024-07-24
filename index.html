@@ -17,24 +17,19 @@
 
 
     
-   <nav>
-        <div class="navButton">
-            <a href="javascript:void(0);"><ion-icon name="menu-outline"></ion-icon></a>
-        </div>
-        <div class="logo">
-            <a href="#"><img src="images/1721299291133.jpeg" alt="Nav bar pic"></a>
-        </div>
-        <ul class="navBar">
-            <li><a href="#">Featured Pizzas</a></li>
-            <li><a href="#">Large Pizzas</a></li>
-            <li><a href="#">Medium Pizzas</a></li>
-            <li><a href="#">Small Pizzas</a></li>
-            <li><a href="#">Cart</a></li>
-            <li><button class="buyButton" @click="logout" x-show="username && cartId">Logout</button></li>
+    <nav>
+        <ul class="navBar" >
+            <li  @click="navOpen = !navOpen" class="navToggle"><span class="bars" ></span></li>
+            <li x-show="navOpen" class="items"><a href="#3">Featured Pizzas</a></li>
+            <li x-show="navOpen" class="items"><a href="#4">Large Pizzas</a></li>
+            <li x-show="navOpen" class="items"><a href="#5">Medium Pizzas</a></li>
+            <li x-show="navOpen" class="items"><a href="#6">Small Pizzas</a></li>
+            <li x-show="navOpen" class="items"><a href="#7">Contact</a></li>
+            <li x-show="navOpen" class="cartHB"><button class="lgB" @click="history = !history">Cart History</button></li>
+            <li x-show="navOpen" class="logOut"><button class="lgB" @click="logout" x-show="username && cartId">Logout</button></li>
         </ul>
-    </nav> 
-
-
+    </nav>
+    
 
 
     <div>
@@ -71,19 +66,19 @@
 
         </div>
             
-<div class="none" x-show="show">
+<div class="none" x-show="show" id="1">
 
 
 
-        <div class="cart" x-show="cartId">
+        <div class="cart" x-show="cartTotal > 0">
             <div>
                 <h2>Cart</h2>
-                <div class="message">
+                <div" id="message">
                 <div x-text="message"></div>
                 <h3 x-show="enjoy">Enjoy your Pizza &#x1F389;</h3>
-                <div class="changeMessage" x-show="change">
+                <div x-show="change">
                     <p>Here is your change:</p>
-                    <p class="change" x-text="changeAmount"></p>
+                    <p x-text="changeAmount"></p>
                 </div>
             </div>
                 <table class="cartTable">
@@ -146,7 +141,64 @@
 
 
 
-<div class="history">
+
+<div class="historyCart" x-show="history" id="2">
+    <div>
+        <h2>Cart</h2>
+        <div" id="message">
+        <div x-text="message"></div>
+        <h3 x-show="enjoy">Enjoy your Pizza &#x1F389;</h3>
+        <div x-show="change">
+            <p>Here is your change:</p>
+            <p x-text="changeAmount"></p>
+        </div>
+    </div>
+        <table class="cartTable">
+            <tr>
+                <th>Cart code</th>
+                <th>Flavour</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+            </tr>
+
+            <template x-for="pizza in cartHistoryArr">
+                <tr class="minWidth">
+                    <td x-text="pizza.pizza_cart_id"></td>
+                    <td x-text="pizza.flavour"></td>
+                   <td x-text="pizza.size" ></td>
+                   <td x-text="pizza.price"></td>
+                   <td>
+                    x <span x-text="pizza.qty"></span>
+                </td>
+                   <td x-text="pizza.total.toFixed(2)"></td>
+                
+
+                   
+               </tr>
+            </template>
+
+           
+            <template x-for="pizza in cartHistoryArr">
+                <tr class="maxWidth">
+
+                   <td class="minWidth" colspan="10">
+                    <span class="maxWidth" x-text=" pizza.size + ' ' + pizza.flavour +  ' @ ' + 'R ' + pizza.price"></span>
+                       x <span x-text="pizza.qty"></span>
+                       <span class="maxWidth" x-text="' = ' + 'R ' + pizza.total.toFixed(2)"></span>
+                   </td>
+               </tr>
+            </template>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+<!-- <div class="history">
 
     <template x-for="cart in cartHistory">
 
@@ -174,7 +226,7 @@
 </table>
 </template>
 
-</div>
+</div> -->
 
 
  <!-- Featured pizzas
@@ -182,24 +234,41 @@
  <div class="none" x-show="show">
     <div x-show="username && cartId">
    
-           <h2 class="menu">Featured Pizzas</h2>
+           <h2 class="menu" id="3">Featured Pizzas</h2>
     
           
            <div class="pizzas">
           
               
               <div class="space">
-                  <h2 class="tMeaty">Most popular</h2>
+                  <h2 class="fHead">Popular</h2>
                   <template x-for="pizza in sortedPizzas">
-                      <div class="largeMeaty">
+                      <div class="fPizza">
                         
-                          <div x-show="pizza.flavour == 'Four Season' && pizza.size == 'medium'" class="meaty">
+                          <div x-show="pizza.id == favoritePizza" class="feature">
                             <img alt="pizza pic" 
                             src="images/1721379237726.jpg" 
                             width="150" 
                             height="150" 
-                            style="border-radius: 6.5em;">
-                    <table class="meatyTable">
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'meaty'">
+                       
+                       <img alt="pizza pic" 
+                            src="images/1721379237679.jpg" 
+                            width="150" 
+                            height="150" 
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'chicken'">
+                       
+                       <img alt="pizza pic" 
+                            src="images/1721379237709.jpg" 
+                            width="150" 
+                            height="150" 
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'veggie'">
+
+
+                    <table class="fTable">
                         <tr x-text= "'@  ' + pizza.size"></tr>
                        <tr x-text="pizza.flavour"></tr>
                        <tr x-text="'R ' + pizza.price"></tr>
@@ -212,16 +281,32 @@
           
           
               <div class="space">
-                  <h2 class="tChick">Speacial for one</h2>
+                  <h2 class="fHead">Order again</h2>
                   <template x-for="pizza in sortedPizzas">
-                      <div class="largeChicken">
-                          <div x-show="pizza.flavour == 'Sweet Chilli Chicken' && pizza.size == 'small'" class="chicken">
+                      <div class="fPizza">
+                          <div x-show="pizza.id == sometimesPizza" class="feature">
                             <img alt="pizza pic" 
+                            src="images/1721379237726.jpg" 
+                            width="150" 
+                            height="150" 
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'meaty'">
+                       
+                       <img alt="pizza pic" 
                             src="images/1721379237679.jpg" 
                             width="150" 
                             height="150" 
-                            style="border-radius: 6.5em;">
-                           <table class="chickenTable">
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'chicken'">
+                       
+                       <img alt="pizza pic" 
+                            src="images/1721379237709.jpg" 
+                            width="150" 
+                            height="150" 
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'veggie'">
+
+                           <table class="fTable">
                             <tr x-text= "'@  ' + pizza.size"></tr>
                                <tr x-text="pizza.flavour"></tr>
                                <tr x-text="'R ' + pizza.price"></tr>
@@ -234,16 +319,32 @@
           
           
               <div class="space">
-                  <h2 class="tVeggie">Healthy treat</h2>
+                  <h2 class="fHead">Order again</h2>
                   <template x-for="pizza in sortedPizzas">
-                      <div class="largeVeggie">
-                          <div x-show="pizza.flavour == '3 Cheese' && pizza.size == 'large'" class="veggie">
-                            <img alt="pizza pic" 
+                      <div class="fPizza">
+                          <div x-show="pizza.id == leastFavoritePizza" class="feature">
+                           <img alt="pizza pic" 
+                            src="images/1721379237726.jpg" 
+                            width="150" 
+                            height="150" 
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'meaty'">
+                       
+                       <img alt="pizza pic" 
+                            src="images/1721379237679.jpg" 
+                            width="150" 
+                            height="150" 
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'chicken'">
+                       
+                       <img alt="pizza pic" 
                             src="images/1721379237709.jpg" 
                             width="150" 
-                            height="150"
-                            style="border-radius: 6.5em;">
-                           <table class="veggieTable">
+                            height="150" 
+                            style="border-radius: 6.5em;"
+                            x-show="pizza.type === 'veggie'">
+                            
+                           <table class="fTable">
                             <tr x-text= "'@  ' + pizza.size"></tr>
                                <tr x-text="pizza.flavour"></tr>
                                <tr x-text="'R ' + pizza.price"></tr>
@@ -264,7 +365,7 @@
  <div class="none" x-show="show">
  <div x-show="username && cartId">
 
-        <h2 class="menu">Large Pizzas</h2>
+        <h2 id="4" class="menu">Large Pizzas</h2>
  
        
         <div class="pizzas">
@@ -325,7 +426,7 @@
  -------------------------------------------------------------------------------------------------------------------------------- -->
 
  <div class="none" x-show="show">
-       <h2 class="menu">Medium Pizzas</h2>
+       <h2 id="5" class="menu">Medium Pizzas</h2>
 
        <div class="pizzas">
        
@@ -383,7 +484,7 @@
     <!-- Small pizzas
  -------------------------------------------------------------------------------------------------------------------------------- -->
  <div class="none" x-show="show">
- <h2 class="menu">Small Pizzas</h2>
+ <h2 id="6" class="menu">Small Pizzas</h2>
 
  <div class="pizzas">
        
@@ -437,7 +538,7 @@
 </div>
 </div>
 
-<div class="details">
+<div id="7" class="details">
     <div class="left">
         <h2>Contact Details</h2>
         <p><ion-icon name="call-outline"></ion-icon>: 011 340 1231</p>

@@ -10,7 +10,7 @@ document.addEventListener("alpine:init", () => {
             username: '',
             cartId: '',
             cartPizzas: [],
-            sortedCartPizzas: [],
+            unSortedPizzas: [],
             cartTotal: 0.00,
             pizzaId: null,
             paymentAmount: 0.00,
@@ -20,11 +20,22 @@ document.addEventListener("alpine:init", () => {
             changeAmount: 0.00,
             darkmode: false,
             enjoy: false,
-            cartHistory : [],
+            cartHistoryArr: [],
+            favoritePizza: '',
+            leastFavoritePizza: '',
+            sometimesPizza: '',
+            history: false,
+            navOpen : false,
 
 
-/* Functions
-------------------------------------------------------------------------------------------------------------------------------------- */
+            /* Functions
+            ------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+            // Function to activate dark mode state
+
+
+            navOpen: false,
 
             toggleDarkMode() {
                 this.darkmode = !this.darkmode;
@@ -33,17 +44,20 @@ document.addEventListener("alpine:init", () => {
             },
 
 
+            // Function to add a username
             login() {
                 if (this.username.length > 2) {
                     localStorage['username'] = this.username;
                     this.createCart();
                     this.show = true;
-
                 } else {
                     alert("Username is too short")
                 }
+                /*                 this.fetchcartHistory()
+                                .then(() => this.mostBought()); */
             },
 
+            // Log out function
             logout() {
                 if (confirm('Do you want to logout?')) {
                     localStorage['username'] = '';
@@ -54,12 +68,13 @@ document.addEventListener("alpine:init", () => {
                 }
             },
 
+            // Function to create a cart
             createCart() {
 
                 if (!this.username) {
-                    this.cartId = 'No username to create a cart'
+                    this.cartId = 'No username to create a cart';
                     return;
-                }
+                };
 
 
                 const cartId = localStorage['cartId']
@@ -77,20 +92,103 @@ document.addEventListener("alpine:init", () => {
                 };
             },
 
+            // Function to retrieve data from cart using cart ID
+
             getCart() {
                 const getCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/${this.cartId}/get`
                 return axios.get(getCartURL);
             },
 
-        /*     showOrders() {
-                const pastOrders = `https://pizza-api.projectcodex.net/api/pizza-cart/username/${this.username}`;
-                return axios.showPastOrders(pastOrders)
-            }, */
-
-            fetchcartHistory(){
-                this.cartHistory = JSON.parse(localStorage.getItem('cartHistory') || [])
-            console.log(this.cartHistory)
+            mounted() {
+                this.favoritePizza = localStorage.getItem('favoritePizza') || null;
             },
+
+
+            // Function to determine the most bought pizza
+            mostBought() {
+                let pizzaMap = {};
+
+                this.cartHistoryArr.forEach((pizza) => {
+                    if (pizzaMap[pizza.id] === undefined) {
+                        pizzaMap[pizza.id] = 1;
+                    } else {
+                        pizzaMap[pizza.id]++;
+                    }
+                });
+
+                // Find most popular pizza
+                let mostPopularPizzaId = '';
+                let maxCount = 0;
+                Object.entries(pizzaMap).forEach(([id, count]) => {
+                    if (count > maxCount) {
+                        maxCount = count;
+                        mostPopularPizzaId = id;
+                    }
+                });
+
+                // Find least popular pizza (least bought)
+                let leastPopularPizzaId = '';
+                let minCount = Infinity; // Initialize with a large value
+                Object.entries(pizzaMap).forEach(([id, count]) => {
+                    if (count < minCount) {
+                        minCount = count;
+                        leastPopularPizzaId = id;
+                    }
+                });
+
+                // Find a random pizza that is neither most nor least popular
+                const eligiblePizzas = Object.keys(pizzaMap).filter(id => id !== mostPopularPizzaId && id !== leastPopularPizzaId);
+                const randomIndex = Math.floor(Math.random() * eligiblePizzas.length);
+                const randomPizzaId = eligiblePizzas[randomIndex];
+
+                // Update favorite pizza and local storage
+                this.favoritePizza = mostPopularPizzaId;
+                this.sometimesPizza = randomPizzaId;
+                this.leastFavoritePizza = leastPopularPizzaId;
+
+
+                localStorage['sometimesPizza'] = this.sometimesPizza;
+                localStorage['leastfavoritePizza'] = this.leastFavoritePizza;
+                localStorage['favoritePizza'] = this.favoritePizza;
+
+                console.log(`Most Popular Pizza: ${mostPopularPizzaId}`);
+                console.log(`Least Popular Pizza: ${leastPopularPizzaId}`);
+                console.log(`Random Pizza: ${randomPizzaId}`);
+            },
+
+
+
+
+
+            // Function to retrieve cart history
+            fetchcartHistory() {
+                const historicalOrdersUrl = `https://pizza-api.projectcodex.net/api/pizza-cart/username/${this.username}`;
+
+                return axios
+                    .get(historicalOrdersUrl)
+                    .then((res) => {
+                        const carts = res.data;
+                        const paidCartPromises = carts
+                            .filter(cart => cart.status === 'paid')
+                            .map(cart => {
+                                const paidCartCode = cart.cart_code;
+                                const getCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/${paidCartCode}/get`;
+
+                                return axios
+                                    .get(getCartURL)
+                                    .then((res) => res.data.pizzas);
+                            });
+
+                        return Promise.all(paidCartPromises);
+                    })
+
+                    .then((cartHistories) => {
+                        this.cartHistoryArr = cartHistories.flat(); // Flatten the array of arrays
+                        localStorage['cartHistoryArr'] = this.cartHistoryArr;
+                        console.log('History', this.cartHistoryArr);
+                    })
+            },
+
 
 
             addPizza(pizzaId) {
@@ -126,18 +224,19 @@ document.addEventListener("alpine:init", () => {
                 });
             },
 
+            
 
-            init() {
+
+            async init() {
+
+                // Store username into local storage
                 const storedUsername = localStorage['username'];
                 if (storedUsername) {
                     this.username = storedUsername
                 };
 
 
-                const storedCart = localStorage['oldCart'];
-                if (storedCart) {
-                    this.storedCart = ['oldCart']
-                };
+                const storedHistory = localStorage.getItem('history');
 
                 // Load dark mode state
                 const storedDarkMode = localStorage.getItem('darkmode') === 'true';
@@ -150,6 +249,8 @@ document.addEventListener("alpine:init", () => {
                         this.pizzas = result.data.pizzas;
                         this.sortedPizzas = this.pizzas.sort((a, b) => b.price - a.price);
                         this.pizzaId = this.sortedPizzas.id;
+                        this.unSortedPizzas = this.pizzas.sort((a, b) => a.price - b.price);
+
                     });
 
                 const cartId = localStorage['cartId'];
@@ -168,6 +269,9 @@ document.addEventListener("alpine:init", () => {
 
 
                 this.show = true;
+                await this.fetchcartHistory();
+                this.mostBought();
+
             },
 
 
@@ -188,25 +292,24 @@ document.addEventListener("alpine:init", () => {
             },
 
             payForCart() {
+                const element = document.getElementById('message');
+
                 this.pay(this.paymentAmount)
                     .then(result => {
                         if (result.data.status === 'failure') {
                             this.message = result.data.message;
-                            
+                            element.style.color = 'red';
+
                             setTimeout(() => this.message = '', 3000);
-                            alert("Not enough please enter the required amount!");
+
                         } else {
                             if (this.paymentAmount > this.cartTotal) {
                                 this.message = 'Payment received';
                                 this.changeAmount = (this.paymentAmount - this.cartTotal).toFixed(2);
                                 this.change = true;
                                 this.enjoy = true;
+                                element.style.color = 'green';
 
-                                let localStorageData = JSON.parse(localStorage.getItem('cartHistory')) || [];
-                                let cartHistoryArr = [...this.cartPizzas, ...localStorageData];
-                                localStorage.setItem('cartHistory', JSON.stringify(cartHistoryArr));
-                                this.cartHistory = cartHistoryArr; // Update the cartHistory in Alpine.js component
-                                console.log(cartHistoryArr);                          
 
                             } else {
                                 this.message = 'Payment received';
@@ -220,10 +323,10 @@ document.addEventListener("alpine:init", () => {
                                 this.changeAmount = 0.00;
                                 this.change = false;
                                 this.enjoy = false;
-            
+
                                 // Clear local storage
                                 localStorage['cartId'] = '';
-            
+
                                 // Create a new cart
                                 this.createCart()
                                     .then(() => {
@@ -232,7 +335,7 @@ document.addEventListener("alpine:init", () => {
                                     .catch(error => {
                                         console.error("Error creating new cart:", error);
                                     });
-            
+
                                 this.message = ''; // Clear message after a delay
                             }, 3000);
                         }
@@ -240,8 +343,10 @@ document.addEventListener("alpine:init", () => {
                     .catch(error => {
                         console.error("Error processing payment:", error);
                     });
+                this.fetchcartHistory()
+                    .then(() => this.mostBought());
             }
-            
+
 
         };
     });

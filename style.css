@@ -3,6 +3,7 @@ body {
     font-weight:bolder;
     margin-left: 1.5em;
     margin-right: 1.5em;
+    margin-top: 5em;
     background-image: url('images/1721298066783.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -12,73 +13,158 @@ body {
 
 }
 
+.content{
+    font-family: Helvetica;
+    font-weight:bolder;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+}
+
 /*  Navigation BAR
 -------------------------------------------------------------------------------------------------------------------------------- */
-
-a, a:hover {
-    text-decoration: none;
-}
-
-.top-bar span {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 25px;
-    background-color: #fdfcdc;
-}
-
-.logo img {
-    width: 40px;
-    margin-left: 10px;
-}
 
 nav {
     background-color: #fdfcdc;
     color: #003049;
-    padding: 5px 15px;
+    padding: -5px -5px;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    margin-top: -5em;
+    margin-left: -1.5em;
 }
 
 nav a {
     color: #003049;
+    text-decoration: none;
 }
 
-.logo {
-    flex: 1;
-}
-
-.logo img {
-    width: 40px;
-    margin-right: 10px;
-}
 
 .navBar {
     display: flex;
     align-items: center;
     list-style: none;
+    margin-top: 5px;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
+
+
+
 
 .navBar li {
     padding: 15px 10px;
     font-size: 16px;
-    border-right: solid 1px #003049;
 }
 
-.navButton {
-    font-size: 30px;
+.navBar li a{
+    display: block;
 }
 
-@media screen and (max-width: 600px) {
+.navToggle {
+    cursor: pointer;
+    order: 1;
+}
+
+
+.bars{
+    background-color: #d62828;
+    display: inline-block;
+    height: 2px;
+    position: relative;
+    width: 18px;
+    margin-bottom: 5px;
+    margin-right: 30px;
+}
+
+.bars::before, .bars::after{
+    background-color: #d62828;
+    content: '';
+    display: inline-block;
+    height: 2px;
+    position: absolute;
+    width: 18px;
+}
+
+.bars::before{
+    top: 5px;
+}
+.bars::after{
+    top: -5px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+
+.newToggleImg {
+    width: 40px;
+    margin-left: 3px;
+}
+
+.button.secondary{
+    border-bottom: #003049 solid 1px;
+}
+.items{
+    order: 2;
+    text-align: right;
+}
+
+.cartHB{
+     order: 3;
+     text-align: right;
+}
+
+.logOut{
+    order: 4;
+    text-align: right;
+}
+
+.lgb{
+    border-radius: 1em;
+    font-weight: bolder;
+    border: 1px solid #a8dadc;
+    background-color: #a8dadc;
+}
+
+/* Mobile menu */
+
+@media screen and (max-width: 871px) {
     nav {
         display: block;
         position: relative;
         padding: 15px 20px;
     }
 
+    .items{
+        width: 100%;
+        text-align: center;
+        order: 2;
+    }
+
+    .cartHB{
+        text-align: center;
+
+    }
+    .logOut{
+        text-align: center;
+    }
+
+    .item.active{
+        display: block;
+    
+    }
+
     .navBar {
+        display: flex;
+        align-items: center;
         margin-top: 15px;
-        display: none;
+       flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     .navBar.active {
@@ -95,11 +181,7 @@ nav a {
         right: 20px;
     }
 }
-
-
-
-
-
+ 
 
 
 /* Body
@@ -267,6 +349,35 @@ nav a {
 }
 
 
+.fPizza{
+        display: flex;
+    flex-direction: column;
+}
+
+.fHead{
+    background-color: #fdfcdc;
+    border-radius: 1em;
+
+    text-align: center;
+}
+
+.fTable{
+    background-color:   #fdfcdc;
+    border: 1px solid #fdfcdc;
+    border-radius: 1em;
+}
+
+.feature{
+    background-color:   #fdfcdc;;
+    border: 2px solid #fdfcdc;;
+    border-radius: 1em;
+    margin-bottom: 5px ;
+    padding-top: 2px;
+    display: flex;
+    align-items: stretch;
+}
+
+
 
 .largeMeaty{
     display: flex;
@@ -363,7 +474,8 @@ nav a {
     }
 
     .top{
-        margin-bottom: 5px ;
+        margin-top: 10px;
+        margin-bottom: 10px ;
         display: flex;
         align-items: stretch;
     }
@@ -389,8 +501,6 @@ nav a {
 
 
 .toggle-container {
-    align-items: right;
-    justify-content: right;
     margin-right: 1px;
     border-radius: 1em;
     font-weight: bolder;
@@ -509,7 +619,7 @@ body.darkmode .showPopUp{
 body.darkmode .cartTable {
     background-color: #669bbc;
     margin: auto;
-    width: 100%;
+    width: 60%;
     border-collapse: collapse;
 }
 
@@ -568,4 +678,35 @@ body.darkmode .details {
     border: 3px solid #669bbc;
     border-radius: 1em;
     align-content: space-evenly;
+}
+
+body.darkmode .fHead{
+background-color: #a8dadc;
+border-radius: 1em;
+
+text-align: center;
+}
+
+body.darkmode .fTable{
+background-color:   #a8dadc;
+border: 1px solid #a8dadc;
+border-radius: 1em;
+}
+
+body.darkmode .feature{
+background-color:   #a8dadc;
+border: 2px solid #a8dadc;
+border-radius: 1em;
+margin-bottom: 5px ;
+padding-top: 2px;
+display: flex;
+align-items: stretch;
+}
+
+body.darkmode .buyButton{
+    background-color: #fdfcdc;
+}
+
+body.darkmode .payButton{
+    background-color: #fdfcdc;
 }
