@@ -34,13 +34,19 @@
 
     <div>
         <div class="top">  
-            <span class="greet"
+           <div class="greet">
+            <div>
+            <span 
                 x-text ="'Hi ' + username " 
                 x-show="username && cartId" 
             ></span>
-            
         </div>
-      <!-- <div style="display: none;">  Cart Code: <span x-text="cartId"></span></div> --> 
+        <div>
+              Cart Code: <span x-text="cartId"></span>
+            </div>
+            </div>
+        </div>
+      
 
       <div class="toggle-container">
         <button @click="toggleDarkMode" class="toggle-button">
