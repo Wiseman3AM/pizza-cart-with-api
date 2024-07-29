@@ -162,7 +162,7 @@
 
         <h2 class="menu">Cart history</h2>
         <table class="cartTable">
-            <tr  class="minWidth">
+            <tr>
                 <th>Cart code</th>
                 <th>Pizzas</th>
                 <th>Total</th>
@@ -170,7 +170,7 @@
             
             <template x-for="(group, cartId) in groupedPizzas">
                 <!-- Row for large screens -->
-                <tr class="minWidth">
+                <tr>
                     <td x-text="cartId"></td>
                     <td>
                         <template x-for="pizza in group.pizzas">
@@ -179,23 +179,6 @@
                     </td>
                     <td>
                         <strong>Total: R <span x-text="group.pizzas.reduce((sum, pizza) => sum + pizza.total, 0).toFixed(2)"></span></strong>
-                    </td>
-                </tr>
-        
-                <!-- Row for small screens -->
-                <tr class="maxWidth">
-                    <td class="maxWidth" colspan="10">
-                        <span class="maxWidth" x-text="'Cart ID: ' + cartId"></span>
-                        <template x-for="pizza in group.pizzas">
-                            <div>
-                                <span class="maxWidth" x-text="pizza.size + ' ' + pizza.flavour"></span>
-                                x <span x-text="pizza.qty"></span>
-                            </div>
-                        </template>
-                        <div>
-                            <span class="maxWidth">Total: R </span>
-                            <span x-text="group.pizzas.reduce((sum, pizza) => sum + pizza.total, 0).toFixed(2)"></span>
-                        </div>
                     </td>
                 </tr>
             </template>

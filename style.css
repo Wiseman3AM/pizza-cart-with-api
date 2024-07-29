@@ -591,36 +591,7 @@ a:hover {
 
 @media (max-width: 580px) {
     .cartTable {
-        width: 80%;
-    }
-
-    /* Hide all table elements by default */
-    .cartTable th,
-    .cartTable td,
-    .cartTable tr {
-        display: none;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    /* Show the minWidth rows on small screens */
-    tr.minWidth {
-        display: table-row;
-    }
-
-    /* Show the maxWidth rows on small screens */
-    tr.maxWidth {
-        display: table-row; /* Make sure maxWidth rows are displayed */
-    }
-
-    /* Show minWidth cells specifically */
-    td.minWidth {
-        display: table-cell;
-    }
-
-    /* Now show maxWidth elements */
-    .maxWidth {
-        display: block; /* Now display on small screens */
+        font-size: smaller;
     }
 }
 
