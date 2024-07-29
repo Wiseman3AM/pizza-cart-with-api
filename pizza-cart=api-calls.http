@@ -8,7 +8,7 @@ GET https://pizza-api.projectcodex.net/api/pizzas
 
 ### Create a cart
 
-GET https://pizza-api.projectcodex.net/api/pizza-cart/create?username=wiseman3am
+GET https://pizza-api.projectcodex.net/api/pizza-cart/create?username=amu
 
 
 ### Get a cart
@@ -47,7 +47,7 @@ content-type: application/json
 
 ### GET all the carts for a given user
 
-GET https://pizza-api.projectcodex.net/api/pizza-cart/username/wiseman3am
+GET https://pizza-api.projectcodex.net/api/pizza-cart/username/amu
 
 ### GET all the active carts for a user
 

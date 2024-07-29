@@ -30,12 +30,30 @@ document.addEventListener("alpine:init", () => {
 
             /* Functions
             ------------------------------------------------------------------------------------------------------------------------------------- */
-
+            groupPizzas() {
+                const grouped = {};
+                this.cartHistoryArr.forEach(pizza => {
+                    if (!grouped[pizza.pizza_cart_id]) {
+                        grouped[pizza.pizza_cart_id] = {
+                            pizzas: [],
+                            total: 0  // Initialize total for this cart ID
+                        };
+                    }
+                    grouped[pizza.pizza_cart_id].pizzas.push(pizza);
+                    grouped[pizza.pizza_cart_id].total += pizza.total;  // Sum the total
+                });
+                return grouped;
+            },
+            
+            // Computed property to access grouped pizzas
+            get groupedPizzas() {
+                return this.groupPizzas();
+            },
+            
 
             // Function to activate dark mode state
 
 
-            navOpen: false,
 
             toggleDarkMode() {
                 this.darkmode = !this.darkmode;
@@ -43,6 +61,7 @@ document.addEventListener("alpine:init", () => {
                 localStorage.setItem('darkmode', this.darkmode);
             },
 
+            
 
             // Function to add a username
             login() {
@@ -161,33 +180,33 @@ document.addEventListener("alpine:init", () => {
 
 
             // Function to retrieve cart history
-            fetchcartHistory() {
-                const historicalOrdersUrl = `https://pizza-api.projectcodex.net/api/pizza-cart/username/${this.username}`;
+         // Function to retrieve cart history
+         fetchcartHistory() {
+            const historicalOrdersUrl = `https://pizza-api.projectcodex.net/api/pizza-cart/username/${this.username}`;
 
-                return axios
-                    .get(historicalOrdersUrl)
-                    .then((res) => {
-                        const carts = res.data;
-                        const paidCartPromises = carts
-                            .filter(cart => cart.status === 'paid')
-                            .map(cart => {
-                                const paidCartCode = cart.cart_code;
-                                const getCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/${paidCartCode}/get`;
+            return axios
+                .get(historicalOrdersUrl)
+                .then((res) => {
+                    const carts = res.data;
+                    const paidCartPromises = carts
+                        .filter(cart => cart.status === 'paid')
+                        .map(cart => {
+                            const paidCartCode = cart.cart_code;
+                            const getCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/${paidCartCode}/get`;
 
-                                return axios
-                                    .get(getCartURL)
-                                    .then((res) => res.data.pizzas);
-                            });
+                            return axios
+                                .get(getCartURL)
+                                .then((res) => res.data.pizzas);
+                        });
 
-                        return Promise.all(paidCartPromises);
-                    })
-
-                    .then((cartHistories) => {
-                        this.cartHistoryArr = cartHistories.flat(); // Flatten the array of arrays
-                        localStorage['cartHistoryArr'] = this.cartHistoryArr;
-                        console.log('History', this.cartHistoryArr);
-                    })
-            },
+                    return Promise.all(paidCartPromises);
+                })
+                .then((cartHistories) => {
+                    this.cartHistoryArr = cartHistories.flat(); // Flatten the array of arrays
+                    localStorage['cartHistoryArr'] = this.cartHistoryArr;
+                    console.log('History', this.cartHistoryArr);
+                })
+        },
 
 
 

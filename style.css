@@ -34,7 +34,13 @@ nav {
     margin: 0;
     margin-top: -5em;
     margin-left: -1.5em;
+    margin-right: -1.5em;
+    position: fixed;
+    top: 1;
+    z-index: 1000; 
+    width: 100%;
 }
+
 
 nav a {
     color: #003049;
@@ -54,6 +60,31 @@ nav a {
 
 
 
+/* nav {
+    position: fixed; Fixed position
+    top: 0; Align to the top of the screen
+    left: 50%; Center the nav
+    transform: translateX(-50%); Shift left by half of its width
+    width: 60%; Width of the navbar
+    height: 50px; Height of the navbar
+    background-color: #fdfcdc;
+    color: #003049;
+    display: flex; Flexbox for alignment
+    align-items: center; Center items vertically
+    z-index: 1000; Ensure it appears above other content
+}
+
+.navBar {
+    list-style-type: none; Remove bullets
+    margin: 0; Remove default margin
+    padding: 0; Remove default padding
+    display: flex; Flexbox for horizontal layout
+    justify-content: space-between; Space items evenly
+    width: 100%; Full width of nav
+}
+ */
+
+
 .navBar li {
     padding: 15px 10px;
     font-size: 16px;
@@ -64,7 +95,8 @@ nav a {
 }
 
 .navToggle {
-    cursor: pointer;
+    cursor: pointer; /* Pointer cursor for toggle */
+    padding: 0 15px; /* Padding for toggle */
     order: 1;
 }
 
@@ -101,14 +133,8 @@ a:hover {
 
 
 
-.newToggleImg {
-    width: 40px;
-    margin-left: 3px;
-}
 
-.button.secondary{
-    border-bottom: #003049 solid 1px;
-}
+
 .items{
     order: 2;
     text-align: right;
@@ -122,9 +148,14 @@ a:hover {
 .logOut{
     order: 4;
     text-align: right;
+    
 }
 
-.lgb{
+.lgB{
+    border-radius: 1em;
+    font-weight: bolder;
+    align-items: center;
+    justify-content: center;
     border-radius: 1em;
     font-weight: bolder;
     border: 1px solid #a8dadc;
@@ -135,52 +166,64 @@ a:hover {
 
 @media screen and (max-width: 871px) {
     nav {
-        display: block;
-        position: relative;
-        padding: 15px 20px;
+        position: fixed; /* Keep the navbar fixed at the top */
+        top: 0; /* Align to the top of the screen */
+        left: 0; /* Align to the left */
+        z-index: 1000; /* Ensure it stays above other content */
+        padding: 15px 20px; /* Padding for the navbar */
+        margin: 0; /* Reset margin */
+        width: 100%; /* Full width */
+        background-color: #fdfcdc; /* Optional: Background color */
+        color: #003049;
+        transition: transform 0.3s ease; /* Smooth transition for toggling */
     }
 
-    .items{
-        width: 100%;
-        text-align: center;
-        order: 2;
+    .navToggle {
+        height: 2px; /* Height of the toggle bar */
+        padding-top: 1px; /* Padding above the toggle */
     }
 
-    .cartHB{
-        text-align: center;
-
-    }
-    .logOut{
-        text-align: center;
+    .items {
+        width: 100%; /* Full width for items */
+        text-align: center; /* Center text */
+        order: 2; /* Flex order */
     }
 
-    .item.active{
-        display: block;
-    
+    .cartHB {
+        text-align: center; /* Center cart history button */
     }
+
+    .logOut {
+        text-align: center; /* Center logout button */
+    }
+
+    /* Show active item */
+   
 
     .navBar {
-        display: flex;
-        align-items: center;
-        margin-top: 15px;
-       flex-wrap: wrap;
-        justify-content: space-between;
+        display: flex; /* Flexbox for navbar layout */
+        align-items: center; /* Center items vertically */
+        margin-top: 0; /* Remove margin */
+        flex-wrap: wrap; /* Allow wrapping of items */
+        justify-content: space-between; /* Space items evenly */
     }
 
+    /* Display navBar when active */
     .navBar.active {
-        display: block;
+        display: flex; /* Use flex when active */
     }
 
     .navButton {
-        font-size: 30px;
+        font-size: 30px; /* Font size for buttons */
     }
 
     .navButton {
-        position: absolute;
-        top: 15px;
-        right: 20px;
+        position: absolute; /* Position button absolutely */
+        top: 15px; /* Position from the top */
+        right: 20px; /* Position from the right */
     }
 }
+
  
 
 
@@ -542,36 +585,43 @@ a:hover {
     color: green;
 }
 
-.maxWidth{
-    display: none;
+.maxWidth {
+    display: none; /* Initially hidden */
 }
 
-@media (max-width: 580px){
-    .cartTable{
-    width: 80%;
+@media (max-width: 580px) {
+    .cartTable {
+        width: 80%;
     }
 
-    .cartTable th, .cartTable td, .cartTable tr {
+    /* Hide all table elements by default */
+    .cartTable th,
+    .cartTable td,
+    .cartTable tr {
         display: none;
         width: 100%;
         box-sizing: border-box;
     }
 
-    
+    /* Show the minWidth rows on small screens */
+    tr.minWidth {
+        display: table-row;
+    }
 
-    td.minWidth{
+    /* Show the maxWidth rows on small screens */
+    tr.maxWidth {
+        display: table-row; /* Make sure maxWidth rows are displayed */
+    }
+
+    /* Show minWidth cells specifically */
+    td.minWidth {
         display: table-cell;
     }
 
-    tr.minWidth, tr.maxWidth{
-        display: table-row;
+    /* Now show maxWidth elements */
+    .maxWidth {
+        display: block; /* Now display on small screens */
     }
-    
-    .maxWidth{
-        display: block;
-
-    }
-
 }
 
 
